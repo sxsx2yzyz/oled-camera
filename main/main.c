@@ -24,4 +24,5 @@ void app_main(void)
     bool ret = SSD1306_I2CMasterAttachDisplayDefault(&DeviceHandle, 128, 64, I2CDisplayAddress, I2CResetPin);
     printf("SSD1306_I2CMasterAttachDisplayDefault %d \n", ret);
     // SSD1306_WriteRawData
+    
 }
