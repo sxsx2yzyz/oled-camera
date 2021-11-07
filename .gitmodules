@@ -1,3 +1,6 @@
 [submodule "components/lvgl"]
 	path = components/lvgl
 	url = https://github.com/lvgl/lvgl.git
+[submodule "components/oled"]
+	path = components/oled
+	url = https://github.com/TaraHoleInIt/tarablessd1306

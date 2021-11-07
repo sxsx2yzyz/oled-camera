@@ -11,30 +11,17 @@
 #include "freertos/task.h"
 #include "esp_system.h"
 #include "esp_spi_flash.h"
-
-
+#include "lvgl.h"
+#include "ssd1306.h"
+#include "ssd1306_default_if.h"
+struct SSD1306_Device DeviceHandle;
+static const int I2CDisplayAddress = 0x3C;
+static const int I2CResetPin = -1;
 void app_main(void)
 {
-    printf("Hello world!\n");
-
-    /* Print chip information */
-    esp_chip_info_t chip_info;
-    esp_chip_info(&chip_info);
-    printf("This is ESP32 chip with %d CPU cores, WiFi%s%s, ",
-            chip_info.cores,
-            (chip_info.features & CHIP_FEATURE_BT) ? "/BT" : "",
-            (chip_info.features & CHIP_FEATURE_BLE) ? "/BLE" : "");
-
-    printf("silicon revision %d, ", chip_info.revision);
-
-    printf("%dMB %s flash\n", spi_flash_get_chip_size() / (1024 * 1024),
-            (chip_info.features & CHIP_FEATURE_EMB_FLASH) ? "embedded" : "external");
-
-    for (int i = 10; i >= 0; i--) {
-        printf("Restarting in %d seconds...\n", i);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-    printf("Restarting now.\n");
-    fflush(stdout);
-    // esp_restart();
+    printf("lvgl %s \n", lv_version_info());
+    SSD1306_I2CMasterInitDefault();//init esp32 i2c
+    bool ret = SSD1306_I2CMasterAttachDisplayDefault(&DeviceHandle, 128, 64, I2CDisplayAddress, I2CResetPin);
+    printf("SSD1306_I2CMasterAttachDisplayDefault %d \n", ret);
+    // SSD1306_WriteRawData
 }
